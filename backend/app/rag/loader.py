@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class CourseLoader:
-    def __init__(self, data_path: str = "data/courses.csv"):
+    def __init__(self, data_path: str = "data/EdX.csv"):
         self.data_path = Path(data_path)
         # Map your actual columns to our internal names
         self.column_mapping = {
