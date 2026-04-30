@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Env files
+.env
+backend/.env
+
+# FAISS
+backend/faiss_index/
+
+# Node
+frontend/node_modules/
+dist/
+build/
