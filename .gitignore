@@ -1,17 +1,32 @@
-# Python
+﻿# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
 .venv/
 venv/
-
-# Env files
-.env
-backend/.env
-
-# FAISS
-backend/faiss_index/
-
-# Node
-frontend/node_modules/
 dist/
 build/
+
+# Env
+.env
+*.env
+
+# FAISS index (large binary)
+faiss_index/
+
+# DB
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+dist/
+.next/
