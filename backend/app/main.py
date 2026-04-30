@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from loguru import logger
 from app.routes.path import router as path_router
+from app.routes.history import router as history_router
 from app.core.config import settings
 
 app = FastAPI(
@@ -19,6 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(path_router, prefix="/api/v1", tags=["path"])
+app.include_router(history_router, prefix="/api/v1", tags=["history"])
 
 
 @app.get("/health")
