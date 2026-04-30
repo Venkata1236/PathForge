@@ -90,17 +90,18 @@ Required Skills for Role: {required_skills}
 Learner Experience: {state['experience_level']}
 Hours per Week: {state['hours_per_week']}
 
-Identify the skill gaps and prioritize them:
-- Priority 1: Foundation skills (without these, nothing else works)
-- Priority 2: Core role-specific skills (most in-demand)
+Identify skill gaps and assign DIFFERENT priorities (never all priority 1):
+- Priority 1: ONE foundation skill only (without this, nothing else works)
+- Priority 2: TWO core role-specific skills (highest demand)
 - Priority 3: Supporting skills
 - Priority 4: Complementary skills
 - Priority 5: Nice-to-have
 
 Rules:
 - Only include skills the learner doesn't already have at 70%+ proficiency
-- Estimate realistic weeks to fill each gap given {state['hours_per_week']} hours/week
-- Maximum 8 gaps total
+- Maximum 6 gaps total
+- Each gap MUST have a unique, specific reason
+- Estimate weeks given {state['hours_per_week']} hrs/week
 - If total estimated weeks > 52, keep only priority 1-3 gaps
 
 Return ONLY valid JSON:
@@ -109,8 +110,14 @@ Return ONLY valid JSON:
         {{
             "skill": "Machine Learning",
             "priority": 1,
-            "reason": "Core requirement for ML Engineer role",
+            "reason": "Foundation for all ML Engineer tasks",
             "estimated_weeks": 4
+        }},
+        {{
+            "skill": "Deep Learning",
+            "priority": 2,
+            "reason": "Core neural network skills for production ML",
+            "estimated_weeks": 3
         }}
     ]
 }}"""
@@ -177,7 +184,16 @@ def path_generator_node(state: PathForgeState) -> PathForgeState:
             course["addresses_gap"] = skill
             course["gap_priority"] = priority
             retrieved_courses.append(course)
-
+            
+        # Deduplicate by course_name — same course should not appear twice
+        seen_courses = set()
+        unique_courses = []
+        for course in retrieved_courses:
+            name = course["course_name"]
+            if name not in seen_courses:
+                seen_courses.add(name)
+                unique_courses.append(course)
+        retrieved_courses = unique_courses
     # Order courses: prerequisites first (priority 1 gaps first, then 2, 3...)
     retrieved_courses.sort(key=lambda x: x.get("gap_priority", 5))
 
