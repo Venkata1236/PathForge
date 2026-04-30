@@ -1,8 +1,3 @@
-"""
-PathForge Pydantic Schemas
-Request + Response models for /generate-path endpoint.
-"""
-
 from pydantic import BaseModel, Field
 from typing import List, Optional
 
@@ -18,9 +13,9 @@ class LearnerProfileRequest(BaseModel):
     model_config = {
         "json_schema_extra": {
             "example": {
-                "learner_name": "Venkat",
-                "current_skills": ["Python", "SQL", "Excel"],
-                "target_role": "ML Engineer",
+                "learner_name": "Your Name",      # ← generic
+                "current_skills": ["Skill 1", "Skill 2"],
+                "target_role": "Target Role",
                 "hours_per_week": 8,
                 "experience_level": "intermediate",
                 "learning_style": "structured"
