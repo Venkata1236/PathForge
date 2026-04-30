@@ -75,3 +75,5 @@ if __name__ == "__main__":
     docs = loader.load_and_clean()
     print(f"Sample: {docs[0].page_content[:200]}...")
     print(f"Metadata: {docs[0].metadata}")
+    
+    
