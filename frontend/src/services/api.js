@@ -1,21 +1,13 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  timeout: 30000,
-});
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-export const generatePath = async (payload) => {
-  const response = await api.post("/generate-path", payload);
-  return response.data;
-};
+const api = axios.create({ baseURL: API_BASE });
 
-export const getHistory = async () => {
-  const response = await api.get("/history");
-  return response.data;
-};
+export const generatePath = (payload) =>
+  api.post("/generate-path", payload);
+
+export const getHistory = () =>
+  api.get("/history");
 
 export default api;
