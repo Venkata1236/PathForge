@@ -11,9 +11,16 @@ app = FastAPI(
     version="1.0.0"
 )
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.origins_list,  # ← from .env, not hardcoded
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://pathforge.vercel.app",        
+        "https://pathforge-*.vercel.app",  
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
