@@ -1,22 +1,21 @@
-﻿"""
-PathForge: /history endpoints
-"""
-
 from fastapi import APIRouter
-from loguru import logger
+from app.database.connection import get_db
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import text
+from fastapi import Depends
 
 router = APIRouter()
 
-
 @router.get("/history")
-async def get_history():
-    """Returns all past generated learning paths."""
-    logger.info("Fetching learning path history")
-    return {"paths": [], "message": "History endpoint — DB wiring in v2"}
-
-
-@router.get("/history/{session_id}")
-async def get_path_by_id(session_id: str):
-    """Returns a specific past learning path by session ID."""
-    logger.info(f"Fetching path: {session_id}")
-    return {"session_id": session_id, "message": "Path detail endpoint — DB wiring in v2"}
+async def get_history(db: AsyncSession = Depends(get_db)):
+    result = await db.execute(
+        text("""
+            SELECT session_id, learner_name, target_role,
+                   total_weeks, course_count, created_at, path_data
+            FROM learning_paths
+            ORDER BY created_at DESC
+            LIMIT 20
+        """)
+    )
+    rows = result.fetchall()
+    return [dict(row._mapping) for row in rows]
