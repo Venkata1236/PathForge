@@ -17,3 +17,5 @@ sqlalchemy
 asyncpg
 pytest
 pytest-asyncio
+asyncpg
+psycopg2-binary
