@@ -1,4 +1,4 @@
-﻿const levelColors = {
+const levelColors = {
   Beginner: "bg-green-100 text-green-700",
   Introductory: "bg-blue-100 text-blue-700",
   Intermediate: "bg-yellow-100 text-yellow-700",
@@ -12,8 +12,10 @@ const CourseCard = ({ course_name, institution, level, effort, addresses_gap, we
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:shadow-md transition-shadow">
       <div className="mb-3 flex items-start justify-between gap-2">
-        <span className="text-xs font-semibold text-slate-400">#{order} · Week {week_start}</span>
-        <span className={ounded-full px-2 py-0.5 text-xs font-medium }>
+        <span className="text-xs font-semibold text-slate-400">
+          #{ order } · Week { week_start }
+        </span>
+        <span className={"rounded-full px-2 py-0.5 text-xs font-medium " + levelStyle}>
           {level}
         </span>
       </div>
@@ -26,7 +28,7 @@ const CourseCard = ({ course_name, institution, level, effort, addresses_gap, we
 
       <div className="flex flex-wrap gap-2">
         <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-600">
-          ⏱ {effort}
+          {effort}
         </span>
         <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
           Covers: {addresses_gap}
