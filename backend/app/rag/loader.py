@@ -6,7 +6,7 @@ import pandas as pd
 import logging
 from typing import List
 from pathlib import Path
-from langchain.docstore.document import Document
+from langchain_core.documents import Document
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
